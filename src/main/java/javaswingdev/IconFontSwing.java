@@ -22,7 +22,7 @@ import javax.swing.JLabel;
 
 final class IconFontSwing {
 
-    private static List<IconFont> fonts = new ArrayList<>();
+    private static List<IconFont> fonts = new ArrayList();
 
     public static synchronized void register(IconFont iconFont) {
         if (iconFont != null && IconFontSwing.fonts.contains(iconFont) == false) {
@@ -37,7 +37,9 @@ final class IconFontSwing {
                     return Font.createFont(Font.TRUETYPE_FONT, iconFont.getFontInputStream());
                 }
             }
-        } catch (FontFormatException | IOException ex) {
+        } catch (FontFormatException ex) {
+            Logger.getLogger(IconFontSwing.class.getName()).log(Level.SEVERE, "Font load failure", ex);
+        } catch (IOException ex) {
             Logger.getLogger(IconFontSwing.class.getName()).log(Level.SEVERE, "Font load failure", ex);
         }
 
